@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bracket Standings</title>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #eeeeee;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+</style>
+</head>
+<body>
+    <table>
+    {% for bracket in bracket_list %}
+        <TR>
+           <TD class="c1">{{bracket.rank}}</TD>
+           <TD class="c2">{{bracket.bracket_name}}</TD>
+           <TD class="c3">{{bracket.points}}</TD>
+           <TD class="c4"><SPAN>{{bracket.potential_points}}</SPAN></TD>
+        </TR>
+    {% endfor %}
+    </table>
+
+    <br><br>
+    <a href="{{ url_for('home') }}">Home</a>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create a GoT Bracket</title>
+</head>
+<body>
+
+<div>
+    <h2>Creating a Bracket</h2>
+    Create a bracket by:
+    <li>Selecting an option for your prediction for each character</li>
+    <li>Then selecting what week you believe the option will occur (except for "Lives", where the week does not matter)</li>
+</div>
+<br><br>
+<h2>Scoring</h2>
+<div>
+    The scoring works as follows:
+    <li>Higher tiers of characters will be worth more points to guess correctly</li>
+    <li>"Dies by": the week selected is the same as or after the week the character dies</li>
+    <li>"Dies on": the week selected is the exact week the character dies</li>
+    <li>"Lives": at the end of the season, if the character is still alive you get these points</li>
+    <br>
+    <h3>Points Breakdown</h3>
+    <h4>Dies By</h4>
+    {% for week_num in range(6, 0, -1) %}
+    <li>Week {{ week_num }}: {{ pred_types['DIES_BY']['week_values'][week_num] }} points</li>
+    {% endfor%}
+    <br>
+    <h4>Dies On</h4>
+    {% for week_num in range(6, 0, -1) %}
+    <li>Week {{ week_num }}: {{ pred_types['DIES_ON']['week_values'][week_num] }} points</li>
+    {% endfor%}
+    <br>
+    <h4>Lives</h4>
+    <li>{{ pred_types['LIVES']['week_values'][1] }} points for any week selected (week is ignored)</li>
+    <br>
+    <h4>Notes about scoring choices:</h4>
+    <li>You get the same number of points for predicting a character dies at all (so by week 6) as you do for predicting they stay alive</li>
+    <li>You get 3 times as many points for predicting a character dying on a certain week than for predicting them dying at all</li>
+</div>
+<br><br>
+
+<form action="{{ url_for('create_bracket') }}" method="post">
+
+<p>Choose a Name for your bracket (don't press enter if you haven't finished filling it out):</p>
+<input name="bracket_name" type="text">
+<br><br>
+
+    {% for tier in tiers %}
+
+    <div>
+    <h4>Tier {{ tier }}: Points x {{ 2**(tier-1) }}</h4>
+    <br>
+        {% for char_name in char_names[tier] %}
+
+            <p>{{char_name}}
+              <select name="{{ char_name }} Prediction Type">
+                <option value="DIES_BY">Dies By</option>
+                <option value="DIES_ON">Dies On</option>
+                <option value="LIVES">Lives</option>
+              </select>
+              <select name="{{ char_name }} Week">
+                  {% for week_num in range(6, 0, -1) %}
+                  <option value="{{ week_num }}">Week {{ week_num }}</option>
+                  {% endfor%}
+              </select>
+            </p>
+        <br>
+
+        {% endfor %}
+        <br><br>
+    </div>
+    {% endfor %}
+
+  <br><br>
+  <input type="submit">
+</form>
+
+
+</body>
+</html>
