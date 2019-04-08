@@ -8,14 +8,14 @@ from src.utils import CHAR_TIERS, TIERS, CHAR_NAMES
 application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def home():
     return render_template(
         'index.html'
     )
 
 
-@app.route('/results/')
+@application.route('/results/')
 def list_bracket_results():
     bracket_results = [
         {
@@ -46,7 +46,7 @@ def list_bracket_results():
     )
 
 
-@app.route('/brackets', methods=['GET'])
+@application.route('/brackets', methods=['GET'])
 def bracket_creation_form():
     return render_template(
         'bracket_creation_form.html',
@@ -56,7 +56,7 @@ def bracket_creation_form():
     )
 
 
-@app.route('/brackets', methods=['POST'])
+@application.route('/brackets', methods=['POST'])
 def create_bracket():
     bracket_name = request.form['bracket_name']
     char_preds = {
