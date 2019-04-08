@@ -71,10 +71,15 @@ def create_bracket():
     try:
         bracket.save()
     except FileExistsError:
-        return request.form['bracket_name'] + ' bracket could not be created, bracket with ' \
+        message = request.form['bracket_name'] + ' bracket could not be created, bracket with ' \
                                               'same name already exists'
 
-    return request.form['bracket_name'] + ' bracket created!'
+    message = request.form['bracket_name'] + ' bracket created!'
+
+    return render_template(
+        'bracket_created.html',
+        message=message
+    )
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', port='8080')
