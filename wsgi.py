@@ -5,7 +5,7 @@ from src.char_pred import PRED_TYPES
 from src.show_state import get_curr_show_state
 from src.utils import CHAR_TIERS, TIERS, CHAR_NAMES
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
 @app.route('/')
@@ -77,4 +77,4 @@ def create_bracket():
     return request.form['bracket_name'] + ' bracket created!'
 
 if __name__ == '__main__':
-    app.run()
+    application.run(host='0.0.0.0', port='8080')
