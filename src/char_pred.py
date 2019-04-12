@@ -29,7 +29,7 @@ PRED_TYPES = {
     },
     'LIVES': {
         'week_values': {
-            ndx: 5
+            ndx: 10
             for ndx in range(1, 7)
         },
         # We're going to say week = 7 means the character has survived the whole season
