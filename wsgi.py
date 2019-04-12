@@ -70,11 +70,10 @@ def create_bracket():
     bracket = Bracket(name=bracket_name, **char_preds)
     try:
         bracket.save()
+        message = request.form['bracket_name'] + ' bracket created!'
     except FileExistsError:
         message = request.form['bracket_name'] + ' bracket could not be created, bracket with ' \
                                               'same name already exists'
-
-    message = request.form['bracket_name'] + ' bracket created!'
 
     return render_template(
         'bracket_created.html',

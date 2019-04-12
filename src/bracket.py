@@ -95,7 +95,7 @@ class Bracket:
             },
             'name': self.name
         }
-        new_filename = self.name.replace(' ', '_') + '_bracket.json'
+        new_filename = self.name.replace(' ', '_').lower() + '_bracket.json'
 
         existing_files = os.listdir(dirpath)
         if new_filename in existing_files:
