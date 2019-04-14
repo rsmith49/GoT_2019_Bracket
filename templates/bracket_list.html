@@ -22,10 +22,16 @@
 </head>
 <body>
     <table>
+        <TR>
+           <TH class="c1">Place</TH>
+           <TH class="c2">Bracket Name</TH>
+           <TH class="c3">Points</TH>
+           <TH class="c4"><SPAN>Potential Points</SPAN></TH>
+        </TR>
     {% for bracket in bracket_list %}
         <TR>
            <TD class="c1">{{bracket.rank}}</TD>
-           <TD class="c2">{{bracket.bracket_name}}</TD>
+           <TD class="c2"><a href="{{ url_for('show_bracket', bracket_name=bracket.bracket_name) }}">{{bracket.bracket_name}}</a></TD>
            <TD class="c3">{{bracket.points}}</TD>
            <TD class="c4"><SPAN>{{bracket.potential_points}}</SPAN></TD>
         </TR>

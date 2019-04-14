@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bracket {{ bracket_name }}</title>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #eeeeee;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+</style>
+</head>
+<body>
+    <table>
+        <TR>
+            <TH class="c1">Character Name</TH>
+            <TH class="c2">Tier</TH>
+            <TH class="c3">Prediction Type</TH>
+            <TH class="c4">Week Predicted</TH>
+            <TH class="c5">Points</TH>
+            <TH class="c6"><SPAN>Potential Points</SPAN></TH>
+        </TR>
+    {% for char_pred in char_preds %}
+        <TR
+           {% if char_pred.points > 0 %}
+            style="background-color:green;color:white"
+           {% elif char_pred.potential_points == 0 %}
+            style="background-color:red;color:white"
+           {% endif %}
+        >
+           <TD class="c1">{{ char_pred.char_name }}</TD>
+           <TD class="c2">{{ char_pred.char_tier }}</TD>
+           <TD class="c3">{{ char_pred.pred_type|replace('_',' ')|title }}</TD>
+           <TD class="c4">{{ char_pred.pred_week }}</TD>
+           <TD class="c5">{{ char_pred.points }}</TD>
+            <TD class="c6"><SPAN>{{ char_pred.potential_points }}</SPAN></TD>
+        </TR>
+    {% endfor %}
+    </table>
+
+    <br><br>
+    <a href="{{ url_for('home') }}">Home</a>
+
+</body>
+</html>
