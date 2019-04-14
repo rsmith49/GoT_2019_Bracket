@@ -18,7 +18,7 @@ class Bracket:
             if len(kwargs) > 0:
                 raise AttributeError('Filename and Character arguments present')
 
-            with open(filename) as tmp_file:
+            with open(filename.lower()) as tmp_file:
                 char_preds_json = json.load(tmp_file)
 
             self.char_preds = {
