@@ -8,10 +8,10 @@ PRED_TYPES = {
             5: 7,
             6: 5
         },
-        'score_func': lambda week, pred_week, week_val:
+        'score_func': lambda week, pred_week, week_val, curr_week:
             week_val if week is not None and week <= pred_week else 0,
-        'potential_score_func': lambda week, pred_week, week_val:
-            week_val if week is None or week <= pred_week else 0
+        'potential_score_func': lambda week, pred_week, week_val, curr_week:
+            week_val if (week is None and curr_week < pred_week) or (week is not None and week <= pred_week) else 0
     },
     'DIES_ON': {
         'week_values': {
@@ -22,10 +22,10 @@ PRED_TYPES = {
             5: 15,
             6: 15
         },
-        'score_func': lambda week, pred_week, week_val:
+        'score_func': lambda week, pred_week, week_val, curr_week:
             week_val if week is not None and week == pred_week else 0,
-        'potential_score_func': lambda week, pred_week, week_val:
-            week_val if week is None or week == pred_week else 0
+        'potential_score_func': lambda week, pred_week, week_val, curr_week:
+            week_val if (week is None and curr_week < pred_week) or (week is not None and week == pred_week) else 0
     },
     'LIVES': {
         'week_values': {
@@ -33,9 +33,9 @@ PRED_TYPES = {
             for ndx in range(1, 7)
         },
         # We're going to say week = 7 means the character has survived the whole season
-        'score_func': lambda week, pred_week, week_val:
+        'score_func': lambda week, pred_week, week_val, curr_week:
             week_val if week == 7 else 0,
-        'potential_score_func': lambda week, pred_week, week_val:
+        'potential_score_func': lambda week, pred_week, week_val, curr_week:
             week_val if week is None or week == 7 else 0
     }
 }
@@ -83,7 +83,8 @@ class CharPred:
         res_points = PRED_TYPES[self.pred_type][score_type](
             char_state.week_died(),
             self.pred_val,
-            PRED_TYPES[self.pred_type]['week_values'][self.pred_val]
+            PRED_TYPES[self.pred_type]['week_values'][self.pred_val],
+            char_state.curr_week
         )
 
         return 2 ** (self.char_tier - 1) * res_points
