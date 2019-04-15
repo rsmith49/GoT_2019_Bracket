@@ -54,26 +54,9 @@ def bracket_creation_form():
 
 @application.route('/brackets', methods=['POST'])
 def create_bracket():
-    bracket_name = request.form['bracket_name']
-    char_preds = {
-        char_name: {
-            'pred_type': request.form[char_name + ' Prediction Type'],
-            'pred_val': int(request.form[char_name + ' Week'])
-        }
-        for char_name in CHAR_TIERS
-    }
-
-    bracket = Bracket(name=bracket_name, **char_preds)
-    try:
-        bracket.save()
-        message = request.form['bracket_name'] + ' bracket created!'
-    except FileExistsError:
-        message = request.form['bracket_name'] + ' bracket could not be created, bracket with ' \
-                                              'same name already exists'
-
     return render_template(
         'bracket_created.html',
-        message=message
+        message="Time to submit brackets has ended"
     )
 
 
