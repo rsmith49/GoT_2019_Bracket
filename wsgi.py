@@ -71,6 +71,7 @@ def show_bracket(bracket_name):
         [
             {
                 'char_name': char_name,
+                'win_perc': bracket.char_win_percs[char_name],
                 'char_tier': bracket.char_preds[char_name].char_tier,
                 'pred_type': bracket.char_preds[char_name].pred_type,
                 'pred_week': bracket.char_preds[char_name].pred_val,
@@ -89,7 +90,8 @@ def show_bracket(bracket_name):
     return render_template(
         'bracket_show.html',
         bracket_name=bracket.name,
-        char_preds=char_preds
+        char_preds=char_preds,
+        bracket_num_wins=bracket.num_wins
     )
 
 

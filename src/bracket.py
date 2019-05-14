@@ -29,21 +29,38 @@ class Bracket:
                 )
                 for char_name in char_preds_json['preds']
             }
+            try:
+                self.char_win_percs = {
+                    char_name: str(char_preds_json['preds'][char_name]['win_perc'])
+                    for char_name in char_preds_json['preds']
+                }
+            except KeyError:
+                self.char_win_percs = {
+                    char_name: ''
+                    for char_name in char_preds_json['preds']
+                }
 
             self.name = char_preds_json['name']
+            try:
+                self.num_wins = str(char_preds_json['num_wins'])
+            except KeyError:
+                self.num_wins = ''
         else:
             if name is None:
                 raise AttributeError('Need a name for the bracket')
 
             self.name = name
             self.char_preds = {}
+            self.char_win_percs = {}
+            self.num_wins = ''
 
             for char_name in kwargs:
-               self.char_preds[char_name] = CharPred(
-                   kwargs[char_name]['pred_type'],
-                   kwargs[char_name]['pred_val'],
-                   CHAR_TIERS[char_name]
-               )
+                self.char_preds[char_name] = CharPred(
+                    kwargs[char_name]['pred_type'],
+                    kwargs[char_name]['pred_val'],
+                    CHAR_TIERS[char_name]
+                )
+                self.char_win_percs[char_name] = 0
 
         if set(self.char_preds.keys()) != set(CHAR_TIERS.keys()):
             raise AttributeError('Some characters have been unset')

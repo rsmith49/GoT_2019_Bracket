@@ -24,11 +24,12 @@
     <table>
         <TR>
             <TH class="c1">Character Name</TH>
-            <TH class="c2">Tier</TH>
-            <TH class="c3">Prediction Type</TH>
-            <TH class="c4">Week Predicted</TH>
-            <TH class="c5">Points</TH>
-            <TH class="c6"><SPAN>Potential Points</SPAN></TH>
+            <TH class="c2">% of {{ bracket_num_wins }} Wins they Live</TH>
+            <TH class="c3">Tier</TH>
+            <TH class="c4">Prediction Type</TH>
+            <TH class="c5">Week Predicted</TH>
+            <TH class="c6">Points</TH>
+            <TH class="c7"><SPAN>Potential Points</SPAN></TH>
         </TR>
     {% for char_pred in char_preds %}
         <TR
@@ -39,11 +40,12 @@
            {% endif %}
         >
            <TD class="c1">{{ char_pred.char_name }}</TD>
-           <TD class="c2">{{ char_pred.char_tier }}</TD>
-           <TD class="c3">{{ char_pred.pred_type|replace('_',' ')|title }}</TD>
-           <TD class="c4">{{ char_pred.pred_week }}</TD>
-           <TD class="c5">{{ char_pred.points }}</TD>
-            <TD class="c6"><SPAN>{{ char_pred.potential_points }}</SPAN></TD>
+            <TD class="c2">{{ char_pred.win_perc }}</TD>
+           <TD class="c3">{{ char_pred.char_tier }}</TD>
+           <TD class="c4">{{ char_pred.pred_type|replace('_',' ')|title }}</TD>
+           <TD class="c5">{{ char_pred.pred_week }}</TD>
+           <TD class="c6">{{ char_pred.points }}</TD>
+            <TD class="c7"><SPAN>{{ char_pred.potential_points }}</SPAN></TD>
         </TR>
     {% endfor %}
     </table>
